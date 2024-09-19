@@ -1,0 +1,157 @@
+/* Base styles for the body */
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    background-color: #f0f4f8;
+    /* Light gray-blue background */
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Container to center content */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header styles */
+h1 {
+    font-family: 'Caveat', cursive;
+    font-size: 3em;
+    color: #0077cc;
+    /* Calming blue */
+    text-align: center;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #0077cc, #00aaff);
+    /* Gradient text for modern look */
+    background-clip: text;
+    color: transparent;
+    animation: slideIn 1s ease-out;
+    /* Slide-in animation for header */
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Category styles */
+.category {
+    background-color: #ffffff;
+    /* White background for contrast */
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* Enhanced shadow */
+    transition: transform 0.3s, box-shadow 0.3s;
+    /* Smooth transition */
+    position: relative;
+    /* For pseudo-elements */
+    overflow: hidden;
+    /* Hide pseudo-elements overflow */
+}
+
+.category:hover {
+    transform: translateY(-10px);
+    /* Lift effect on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    /* Darker shadow on hover */
+}
+
+.category::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #0077cc, #00aaff);
+    /* Animated gradient border */
+    transform: translateX(-100%);
+    transition: transform 0.4s ease-in-out;
+}
+
+.category:hover::before {
+    transform: translateX(0);
+    /* Border animation on hover */
+}
+
+.category h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 2.5em;
+    color: #005fa3;
+    /* Slightly darker blue */
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #005fa3, #0077cc);
+    /* Gradient text */
+    background-clip: text;
+    color: transparent;
+    animation: fadeIn 1s ease-out;
+    /* Fade-in animation for headings */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* List styles */
+.category ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.category li {
+    margin-bottom: 15px;
+}
+
+.category a {
+    text-decoration: none;
+    color: #0077cc;
+    font-size: 1.2em;
+    transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
+    /* Smooth transitions */
+    position: relative;
+    /* For text-shadow effect */
+}
+
+.category a:hover {
+    color: #005fa3;
+    /* Darker blue for hover effect */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Shadow for depth */
+    transform: scale(1.05);
+    /* Slight zoom effect */
+}
+#home-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+#home-icon img {
+    width: 30px;
+    height: 30px;
+}
+
+#home-icon:hover {
+    transform: scale(1.1);
+}
