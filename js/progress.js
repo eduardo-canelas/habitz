@@ -1,69 +1,78 @@
-// script.js
+// Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCQsFjMkH4TR5vI74NH57PHicbl2GxtyYE",
+  authDomain: "habitz-c2226.firebaseapp.com",
+  databaseURL: "https://habitz-c2226-default-rtdb.firebaseio.com",
+  projectId: "habitz-c2226",
+  storageBucket: "habitz-c2226.appspot.com",
+  messagingSenderId: "1367064140",
+  appId: "1:1367064140:web:21512c177abc7e3523fee9",
+  measurementId: "G-FFDHF8QTNN"
+};
 
-// Function to add habit
-document.getElementById('add-habit-button').addEventListener('click', function() {
-    const selectedHabit = document.getElementById('habit-selector').value;
-    const customHabit = document.getElementById('custom-habit').value;
-    const habitDate = document.getElementById('habit-date').value;
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-    // Ensure that a habit and a date are added
-    if ((selectedHabit === "" && customHabit.trim() === "") || habitDate === "") {
-        alert("Please select a habit or enter a custom habit, and select a date.");
-        return;
-    }
-
-    // Create a habit object
-    const habit = {
-        habit: selectedHabit || customHabit,
-        date: habitDate
-    };
-
-    // Use local storage to save habits
-    let habits = JSON.parse(localStorage.getItem('habits')) || [];
-    habits.push(habit);
-    localStorage.setItem('habits', JSON.stringify(habits));
-
-    // Redirect to My Habit Progress page
-    window.location.href = 'my-habits.html';
+document.addEventListener('DOMContentLoaded', () => {
+    loadHabits('common-habits.html', 'common-habits');
+    loadHabits('activities.html', 'activities');
+    loadCustomHabits();
 });
 
-// Function to display habits in a calendar format on My Habit Progress page
-window.onload = function() {
-    const habits = JSON.parse(localStorage.getItem('habits')) || [];
-    const calendar = document.getElementById('calendar');
+function loadHabits(url, elementId) {
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById(elementId).innerHTML = data;
+            addClickListeners(elementId);
+        })
+        .catch(error => console.error('Error loading habits:', error));
+}
 
-    // Group habits by date
-    const habitsByDate = habits.reduce((acc, habit) => {
-        acc[habit.date] = acc[habit.date] || [];
-        acc[habit.date].push(habit.habit);
-        return acc;
-    }, {});
+function addClickListeners(elementId) {
+    const items = document.querySelectorAll(`#${elementId} li`);
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            addHabitToList(item.textContent);
+        });
+    });
+}
 
-    // Create a simple calendar for the current month
-    const today = new Date();
-    const month = today.getMonth();
-    const year = today.getFullYear();
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    
-    for (let day = 1; day <= lastDay.getDate(); day++) {
-        const dateString = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-        const dayDiv = document.createElement('div');
-        dayDiv.className = 'day';
-        
-        dayDiv.innerHTML = `<h4>${day}</h4>`;
-        if (habitsByDate[dateString]) {
-            const ul = document.createElement('ul');
-            habitsByDate[dateString].forEach(habit => {
-                const li = document.createElement('li');
-                li.textContent = habit;
-                ul.appendChild(li);
-            });
-            dayDiv.appendChild(ul);
-        } else {
-            dayDiv.innerHTML += '<p>No habits logged</p>';
-        }
+function addHabitToList(habit) {
+    const habitList = document.getElementById('habit-list');
+    const newHabit = document.createElement('li');
+    newHabit.textContent = habit;
+    habitList.appendChild(newHabit);
+    saveHabitToFirebase(habit);
+}
 
-        calendar.appendChild(dayDiv);
+function addCustomHabit() {
+    const customHabit = document.getElementById('custom-habit').value;
+    if (customHabit) {
+        addHabitToList(customHabit);
+        document.getElementById('custom-habit').value = '';
     }
-};
+}
+
+function saveHabitToFirebase(habit) {
+    db.collection('habits').add({
+        name: habit,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+        console.log('Habit added to Firebase!');
+    })
+    .catch(error => {
+        console.error('Error adding habit to Firebase: ', error);
+    });
+}
+
+function loadCustomHabits() {
+    db.collection('habits').orderBy('createdAt').get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            addHabitToList(doc.data().name);
+        });
+    });
+}
