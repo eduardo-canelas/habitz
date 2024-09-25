@@ -1,0 +1,201 @@
+#home-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+#home-icon img {
+    width: 30px;
+    height: 30px;
+}
+
+#home-icon:hover {
+    transform: scale(1.1);
+}
+/* BODY
+---------------------------------------------*/
+body {
+    background-image: url(../images/background-image.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #e0f7fa;
+    /* Light teal for a calming effect */
+    background-blend-mode: lighten;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    color: #333;
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center horizontally */
+    justify-content: center;
+    /* Center vertically */
+    min-height: 100vh;
+    /* Full viewport height */
+}
+
+/* Global Styles */
+.container {
+    width: 90%;
+    max-width: 1000px;
+    background: rgba(255, 255, 255, 0.9);
+    /* Slightly transparent white */
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    /* Pronounced shadow for depth */
+    padding: 20px;
+    margin: 20px auto;
+    /* Center container horizontally */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Heading Styles */
+h1 {
+    text-align: center;
+    color: #00796b;
+    /* Calming dark teal */
+    font-family: 'Caveat', cursive;
+    font-size: 3rem;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+    /* Softer shadow for modern look */
+}
+
+h2 {
+    color: #004d40;
+    /* Deep teal for category titles */
+    font-size: 2rem;
+    margin-bottom: 15px;
+    border-bottom: 3px solid #004d40;
+    /* Thicker border for emphasis */
+    padding-bottom: 10px;
+    font-family: 'Caveat', cursive;
+    text-align: center;
+    /* Center align headings */
+}
+
+/* Category Styles */
+.category {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%);
+    /* Soft gradient background */
+    padding: 20px;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 12px;
+    /* Slightly more rounded corners */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    /* More pronounced shadow for depth */
+}
+
+/* List Style */
+ul {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    /* Full width of container */
+    max-width: 800px;
+    /* Center align list items */
+}
+
+li {
+    background-color: #b2dfdb;
+    /* Soft teal for each item */
+    margin: 10px 0;
+    padding: 15px 20px;
+    /* Increased padding for better touch target */
+    border-radius: 8px;
+    /* More rounded corners for a modern look */
+    font-size: 1.2rem;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    /* Smooth transitions */
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+    text-align: center;
+    /* Center align text in list items */
+}
+
+li:hover {
+    background-color: #80cbc4;
+    /* Slightly lighter teal on hover */
+    transform: translateY(-3px);
+    /* Slight lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    /* Enhanced shadow on hover */
+}
+
+/* Paragraphs */
+p {
+    font-size: 1.1em;
+    /* Larger font for readability */
+    line-height: 1.8;
+    /* Increased line height for better readability */
+    color: #555;
+    /* Darker text for contrast */
+    margin-bottom: 20px;
+    /* Space between paragraphs */
+    text-align: justify;
+    /* Justify text alignment for a clean look */
+    padding: 15px;
+    /* Padding around the text */
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Slightly transparent white background */
+    border-radius: 8px;
+    /* Rounded corners for a modern feel */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth transitions */
+}
+
+/* Interactive Hover Effect */
+p:hover {
+    background-color: #e0f7fa;
+    /* Light teal background on hover */
+    transform: translateY(-5px);
+    /* Slight lift effect */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Enhanced shadow on hover */
+    cursor: pointer;
+    /* Pointer cursor to indicate interactivity */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    p {
+        font-size: 1em;
+        /* Slightly smaller font size on smaller screens */
+        padding: 10px;
+        /* Reduced padding */
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    .category {
+        width: 95%;
+        padding: 15px;
+    }
+
+    li {
+        font-size: 1.1rem;
+    }
+}

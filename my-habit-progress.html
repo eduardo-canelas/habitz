@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Habitz, The Best Free Habit Tracker For You</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat&family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles-my-habit-progress.css" />
+    <title>Habitz</title>
+    <!--Add small image for web browser tab-->
+    <link rel="icon" type="" href="" />
+    <!--Add PNG logo below-->
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Add a Habit</h2>
+      <label for="habit-selector">Select a Common Habit:</label>
+      <select id="habit-selector">
+        <option value="">Select a Habit</option>
+        <option value="Exercise">Exercise</option>
+        <option value="Reading">Reading</option>
+        <option value="Meditation">Meditation</option>
+        <option value="Drinking Water">Drinking Water</option>
+        <option value="Sleep Early">Sleep Early</option>
+        <option value="Journaling">Journaling</option>
+      </select>
+
+      <label for="custom-habit">Or add your own habit:</label>
+      <input
+        type="text"
+        id="custom-habit"
+        placeholder="Type your habit here..."
+      />
+
+      <label for="habit-date">Select a Date:</label>
+      <input type="date" id="habit-date" />
+
+      <div class="button-container">
+        <button id="add-habit-button">Add Habit</button>
+        <button id="cancel-button" onclick="window.location.href='index.html';">
+          Cancel
+        </button>
+      </div>
+    </div>
+    <footer>
+      <p>&copy; 2024 Habitz. All rights reserved.</p>
+    </footer>
+
+    <script src="js/habit-tracker.js"></script>
+  </body>
+</html>
