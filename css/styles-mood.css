@@ -1,0 +1,135 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+}
+
+h1 {
+    text-align: center;
+    color: #4a4a4a;
+    margin-bottom: 10px;
+}
+
+h3 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    text-align: center;
+}
+
+.tracker {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mood-list {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.mood-item {
+    text-align: center;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 50%;
+    background-color: #e7eaf6;
+    font-size: 1.8em;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+}
+
+.mood-item:hover {
+    background-color: #d9dbec;
+    transform: scale(1.1);
+}
+
+.mood-item.selected {
+    background-color: #d3d3d3;
+    transform: scale(1.15);
+}
+
+#save-mood {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+}
+
+#save-mood:hover {
+    background-color: #2563eb;
+}
+
+.mood-history {
+    margin-top: 30px;
+}
+
+.mood-history ul {
+    list-style: none;
+    padding: 0;
+}
+
+.mood-history li {
+    padding: 12px;
+    background-color: #f8f9fa;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mood-history li:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.mood-history li .edit-btn, .delete-btn {
+    background-color: #ef4444;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 0.9em;
+    margin-left: 10px;
+}
+
+.mood-history li .edit-btn:hover, .delete-btn:hover {
+    background-color: #dc2626;
+}
+
+.mood-history li .edit-btn {
+    background-color: #3b82f6;
+}
+
+.mood-history li .edit-btn:hover {
+    background-color: #2563eb;
+}
+
+#mood-journal {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+}
+
+#calendar {
+    max-width: 900px;
+    margin-top: 30px;
+}
