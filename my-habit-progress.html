@@ -10,12 +10,65 @@
       href="https://fonts.googleapis.com/css2?family=Caveat&family=Open+Sans&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/styles-my-habit-progress.css" />
     <title>Habitz</title>
     <!--Add small image for web browser tab-->
     <link rel="icon" type="" href="" />
     <!--Add PNG logo below-->
     <link rel="icon" type="image/png" href="images/favicon.png" />
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+      <h1>My Habit Progress</h1>
+
+      <!-- Form to Add New Habit -->
+      <div id="add-habit">
+        <h2>Add New Habit</h2>
+        <input type="text" id="new-habit" placeholder="Enter your habit" />
+        <button id="add-habit-button">Add Habit</button>
+        <select id="habit-library">
+          <option value="">Select from Habit Library</option>
+          <option value="Drink 8 cups of water">Drink 8 cups of water</option>
+          <option value="Exercise for 30 minutes">
+            Exercise for 30 minutes
+          </option>
+          <option value="Read for 30 minutes">Read for 30 minutes</option>
+          <option value="Meditate for 10 minutes">
+            Meditate for 10 minutes
+          </option>
+          <option value="Practice a new language">
+            Practice a new language
+          </option>
+        </select>
+        <button id="add-library-habit">Add from Library</button>
+      </div>
+
+      <div id="habit-list">
+        <h2>Your Habits</h2>
+        <ul id="habits-ul"></ul>
+      </div>
+
+      <div id="progress-chart">
+        <h2>Progress Visualization</h2>
+        <canvas id="progressCanvas"></canvas>
+      </div>
+
+      <div id="journal-entry">
+        <h2>Journal Entry for Tomorrow</h2>
+        <textarea
+          id="journal-text"
+          placeholder="Write your thoughts..."
+        ></textarea>
+        <button id="save-progress">Save Progress</button>
+      </div>
+
+      <div id="calendar">
+        <h2>Habit Progress Calendar</h2>
+        <div id="calendar-display"></div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/progress.js"></script>
+  </body>
 </html>
