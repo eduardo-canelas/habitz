@@ -1,17 +1,10 @@
-<<<<<<< HEAD
-=======
 /* Home Icon */
->>>>>>> master
 #home-icon {
     position: absolute;
     top: 20px;
     left: 20px;
     display: inline-block;
-<<<<<<< HEAD
-    transition: transform 0.3s ease;
-=======
     transition: transform 0.3s ease, opacity 0.3s ease;
->>>>>>> master
 }
 
 #home-icon img {
@@ -21,25 +14,15 @@
 
 #home-icon:hover {
     transform: scale(1.1);
-<<<<<<< HEAD
-}
-/* BODY
----------------------------------------------*/
-=======
     opacity: 0.8;
 }
 
 /* BODY */
->>>>>>> master
 body {
     background-image: url(../images/background-image.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-color: #e0f7fa;
-<<<<<<< HEAD
-    /* Light teal for a calming effect */
-=======
->>>>>>> master
     background-blend-mode: lighten;
     font-family: 'Open Sans', sans-serif;
     margin: 0;
@@ -47,47 +30,6 @@ body {
     height: 100%;
     color: #333;
     overflow-x: hidden;
-<<<<<<< HEAD
-    /* Prevent horizontal scrolling */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Center horizontally */
-    justify-content: center;
-    /* Center vertically */
-    min-height: 100vh;
-    /* Full viewport height */
-}
-
-/* Global Styles */
-.container {
-    width: 90%;
-    max-width: 1000px;
-    background: rgba(255, 255, 255, 0.9);
-    /* Slightly transparent white */
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    /* Pronounced shadow for depth */
-    padding: 20px;
-    margin: 20px auto;
-    /* Center container horizontally */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Heading Styles */
-h1 {
-    text-align: center;
-    color: #00796b;
-    /* Calming dark teal */
-    font-family: 'Caveat', cursive;
-    font-size: 3rem;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
-    /* Softer shadow for modern look */
-=======
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -124,39 +66,10 @@ h1 {
     margin-top: 30px;
     margin-bottom: 25px;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
->>>>>>> master
 }
 
 h2 {
     color: #004d40;
-<<<<<<< HEAD
-    /* Deep teal for category titles */
-    font-size: 2rem;
-    margin-bottom: 15px;
-    border-bottom: 3px solid #004d40;
-    /* Thicker border for emphasis */
-    padding-bottom: 10px;
-    font-family: 'Caveat', cursive;
-    text-align: center;
-    /* Center align headings */
-}
-
-/* Category Styles */
-.category {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%);
-    /* Soft gradient background */
-    padding: 20px;
-    margin: 20px auto;
-    width: 100%;
-    max-width: 800px;
-    border-radius: 12px;
-    /* Slightly more rounded corners */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    /* More pronounced shadow for depth */
-}
-
-/* List Style */
-=======
     font-size: 2.2rem;
     margin-bottom: 20px;
     border-bottom: 3px solid #004d40;
@@ -182,38 +95,15 @@ h2 {
 }
 
 /* List */
->>>>>>> master
 ul {
     list-style-type: none;
     padding: 0;
     width: 100%;
-<<<<<<< HEAD
-    /* Full width of container */
-    max-width: 800px;
-    /* Center align list items */
-=======
     max-width: 850px;
->>>>>>> master
 }
 
 li {
     background-color: #b2dfdb;
-<<<<<<< HEAD
-    /* Soft teal for each item */
-    margin: 10px 0;
-    padding: 15px 20px;
-    /* Increased padding for better touch target */
-    border-radius: 8px;
-    /* More rounded corners for a modern look */
-    font-size: 1.2rem;
-    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-    /* Smooth transitions */
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Subtle shadow for depth */
-    text-align: center;
-    /* Center align text in list items */
-=======
     margin: 12px 0;
     padding: 18px 22px;
     border-radius: 10px;
@@ -222,26 +112,16 @@ li {
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
->>>>>>> master
 }
 
 li:hover {
     background-color: #80cbc4;
-<<<<<<< HEAD
-    /* Slightly lighter teal on hover */
-    transform: translateY(-3px);
-    /* Slight lift effect */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    /* Enhanced shadow on hover */
-=======
     transform: translateY(-3px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
->>>>>>> master
 }
 
 /* Paragraphs */
 p {
-<<<<<<< HEAD
     font-size: 1.1em;
     /* Larger font for readability */
     line-height: 1.8;
@@ -284,31 +164,11 @@ p:hover {
         padding: 10px;
         /* Reduced padding */
     }
-=======
-    font-size: 1.15rem;
-    line-height: 1.85;
-    color: #444;
-    margin-bottom: 25px;
-    text-align: justify;
-    padding: 18px;
-    background-color: rgba(255, 255, 255, 0.85);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-p:hover {
-    background-color: #e0f7fa;
-    transform: translateY(-5px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
->>>>>>> master
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     h1 {
-<<<<<<< HEAD
         font-size: 2.5rem;
     }
 
@@ -319,28 +179,9 @@ p:hover {
     .category {
         width: 95%;
         padding: 15px;
-=======
-        font-size: 2.8rem;
-    }
-
-    h2 {
-        font-size: 1.8rem;
-    }
-
-    .category {
-        padding: 18px;
->>>>>>> master
     }
 
     li {
         font-size: 1.1rem;
     }
-<<<<<<< HEAD
-=======
-
-    p {
-        font-size: 1rem;
-        padding: 12px;
-    }
->>>>>>> master
 }
