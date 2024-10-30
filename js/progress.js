@@ -1,131 +1,162 @@
-const habitsUl = document.getElementById('habits-ul');
-const newHabitInput = document.getElementById('new-habit');
-const addHabitButton = document.getElementById('add-habit-button');
-const addLibraryHabitButton = document.getElementById('add-library-habit');
-const habitLibrarySelect = document.getElementById('habit-library');
-const journalText = document.getElementById('journal-text');
-const saveProgressButton = document.getElementById('save-progress');
-const calendarDisplay = document.getElementById('calendar-display');
-const ctx = document.getElementById('progressCanvas').getContext('2d');
+// Function to add or update a habit
+// In progress.js
 
-let habits = []; // To store habits as objects
-let journalEntries = {}; // To store journal entries by date
+let selectedHabit = '';
 
-// Initialize the progress chart
-const progressChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: ['Completed', 'Pending'],
-        datasets: [{
-            label: 'Habit Progress',
-            data: [0, 0], // Placeholder for data
-            backgroundColor: ['#4caf50', '#f44336']
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-            }
-        }
-    }
-});
-
-// Function to update the chart based on checked habits
-function updateChart() {
-    const completedHabits = habits.filter(habit => habit.completed).length;
-    progressChart.data.datasets[0].data = [completedHabits, habits.length - completedHabits];
-    progressChart.update();
+function addHabit(habitName) {
+    selectedHabit = habitName;
+    document.getElementById('selected-habit').textContent = `Selected Habit: ${habitName}`;
+    document.getElementById('habit-modal').style.display = 'block';
+    
+    // Set default date and time
+    const now = new Date();
+    document.getElementById('habit-date').value = now.toISOString().split('T')[0];
+    document.getElementById('habit-time').value = now.toTimeString().slice(0,5);
 }
 
-// Function to render the habit list
-function renderHabits() {
-    habitsUl.innerHTML = ''; // Clear the list
-    habits.forEach((habit, index) => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <input type="checkbox" id="habit-${index}" ${habit.completed ? 'checked' : ''} />
-            <label for="habit-${index}">${habit.name}</label>
-        `;
-        habitsUl.appendChild(li);
+function confirmAddHabit() {
+    const habitDate = document.getElementById('habit-date').value;
+    const habitTime = document.getElementById('habit-time').value;
+    
+    if (!habitDate || !habitTime) {
+        showNotification('Please select both date and time');
+        return;
+    }
 
-        // Add event listener to update completion status
-        li.querySelector('input[type="checkbox"]').addEventListener('change', () => {
-            habit.completed = !habit.completed;
-            updateChart();
+    const selectedDateTime = new Date(`${habitDate}T${habitTime}`);
+    
+    // Get existing habits from localStorage
+    let habits = JSON.parse(localStorage.getItem('habits')) || {};
+    
+    // Initialize or update the habit
+    if (habits[selectedHabit]) {
+        habits[selectedHabit].count += 1;
+        habits[selectedHabit].lastUpdated = selectedDateTime.toISOString();
+        habits[selectedHabit].dateTimes.push(selectedDateTime.toISOString());
+    } else {
+        habits[selectedHabit] = {
+            count: 1,
+            firstAdded: selectedDateTime.toISOString(),
+            lastUpdated: selectedDateTime.toISOString(),
+            dateTimes: [selectedDateTime.toISOString()]
+        };
+    }
+    
+    // Save back to localStorage
+    localStorage.setItem('habits', JSON.stringify(habits));
+    
+    // Show feedback to user
+    showNotification(`Added ${selectedHabit} to your habits!`);
+    
+    // Close the modal
+    closeModal();
+}
+
+function closeModal() {
+    document.getElementById('habit-modal').style.display = 'none';
+}
+
+// Function to display notification
+function showNotification(message) {
+    // Remove any existing notifications
+    const existingNotifications = document.querySelectorAll('.notification');
+    existingNotifications.forEach(notification => notification.remove());
+
+    // Create and show new notification
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    // Remove notification after 2 seconds
+    setTimeout(() => {
+        notification.remove();
+    }, 2000);
+}
+
+// Function to reset all habits (for dashboard)
+function resetHabits() {
+    if (confirm('Are you sure you want to reset all habit tracking data?')) {
+        localStorage.removeItem('habits');
+        updateDashboard();
+    }
+}
+
+// Function to update dashboard displays
+// Function to update dashboard displays
+function updateDashboard() {
+    const habits = JSON.parse(localStorage.getItem('habits')) || {};
+    const calendarEvents = JSON.parse(localStorage.getItem('events')) || [];
+    const habitsList = document.getElementById('habits-list');
+    const statsContainer = document.getElementById('stats-container');
+    
+    // Update stats - now including both regular habits and calendar events
+    const totalActivities = Object.values(habits).reduce((sum, habit) => sum + habit.count, 0);
+    const uniqueHabits = Object.keys(habits).length;
+    const calendarHabits = calendarEvents.reduce((sum, day) => sum + day.events.length, 0);
+    
+    statsContainer.innerHTML = `
+        <div class="stat-box">
+            <h3>Total Activities</h3>
+            <p>${totalActivities + calendarHabits}</p>
+        </div>
+        <div class="stat-box">
+            <h3>Unique Habits</h3>
+            <p>${uniqueHabits}</p>
+        </div>
+        <div class="stat-box">
+            <h3>Scheduled Habits</h3>
+            <p>${calendarHabits}</p>
+        </div>
+    `;
+    
+    // Update habits list - combining both regular habits and calendar events
+    if (Object.keys(habits).length === 0 && calendarEvents.length === 0) {
+        habitsList.innerHTML = `
+            <div class="no-habits">
+                <h3>No habits tracked yet</h3>
+                <p>Go to the activities page or calendar to start tracking your habits!</p>
+            </div>
+        `;
+        return;
+    }
+    
+    habitsList.innerHTML = '';
+    
+    // Add regular habits
+    const sortedHabits = Object.entries(habits)
+        .sort(([,a], [,b]) => b.count - a.count);
+    
+    for (const [habit, data] of sortedHabits) {
+        const habitElement = document.createElement('div');
+        habitElement.className = 'habit-item';
+        habitElement.innerHTML = `
+            <h3>${habit}</h3>
+            <p>Times practiced: ${data.count}</p>
+            <p>First added: ${new Date(data.firstAdded).toLocaleDateString()}</p>
+            <p>Last practiced: ${new Date(data.lastUpdated).toLocaleDateString()}</p>
+        `;
+        habitsList.appendChild(habitElement);
+    }
+    
+    // Add calendar events
+    calendarEvents.forEach(dayEvent => {
+        dayEvent.events.forEach(event => {
+            const eventElement = document.createElement('div');
+            eventElement.className = 'habit-item calendar-event';
+            eventElement.innerHTML = `
+                <h3>${event.title}</h3>
+                <p>Scheduled Time: ${event.time}</p>
+                <p>Date: ${dayEvent.month}/${dayEvent.day}/${dayEvent.year}</p>
+            `;
+            habitsList.appendChild(eventElement);
         });
     });
 }
 
-// Add new habit from input
-addHabitButton.addEventListener('click', () => {
-    const newHabit = newHabitInput.value.trim();
-    if (newHabit) {
-        habits.push({ name: newHabit, completed: false });
-        newHabitInput.value = ''; // Clear input field
-        renderHabits();
-        updateChart();
-    }
-});
-
-// Add habit from library
-addLibraryHabitButton.addEventListener('click', () => {
-    const selectedHabit = habitLibrarySelect.value;
-    if (selectedHabit && !habits.some(h => h.name === selectedHabit)) {
-        habits.push({ name: selectedHabit, completed: false });
-        habitLibrarySelect.value = ''; // Clear selection
-        renderHabits();
-        updateChart();
-    }
-});
-
-// Save progress and journal entry
-saveProgressButton.addEventListener('click', () => {
-    const today = new Date().toLocaleDateString();
-    
-    // Save journal entry
-    const journalEntry = journalText.value.trim();
-    if (journalEntry) {
-        journalEntries[today] = journalEntry;
-        journalText.value = ''; // Clear journal text area
-    }
-
-    // Save habit progress
-    const progressData = {
-        date: today,
-        habits: habits.map(habit => ({ name: habit.name, completed: habit.completed }))
-    };
-
-    // Store progress in localStorage
-    localStorage.setItem(today, JSON.stringify(progressData));
-
-    // Update calendar display
-    displayCalendar();
-
-    // Reset habit states for the next day
-    habits.forEach(habit => habit.completed = false);
-    renderHabits();
-    updateChart();
-});
-
-// Display calendar with saved habit progress
-function displayCalendar() {
-    calendarDisplay.innerHTML = ''; // Clear previous entries
-    for (let i = 0; i < 7; i++) {
-        const date = new Date();
-        date.setDate(date.getDate() - i);
-        const dateString = date.toLocaleDateString();
-
-        const entry = localStorage.getItem(dateString);
-        const journalEntry = journalEntries[dateString] || '';
-        
-        const div = document.createElement('div');
-        div.innerHTML = `<strong>${dateString}</strong>: ${entry ? JSON.parse(entry).habits.map(h => `${h.name}: ${h.completed ? '✔️' : '❌'}`).join(', ') : 'No progress recorded.'} <br> Journal: ${journalEntry}`;
-        calendarDisplay.appendChild(div);
-    }
+// Test function to verify JavaScript is working
+function testFunction() {
+    console.log("JavaScript is working!");
+    showNotification("Test notification");
 }
-
-// Initialize chart and calendar display on page load
-updateChart();
-displayCalendar();

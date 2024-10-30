@@ -1,0 +1,139 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    /* Updated font */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #eaeaea;
+    /* Softer background */
+}
+
+.habit-item.calendar-event {
+    background-color: #f0f8ff;
+    /* Light blue background */
+    border-left: 4px solid #4682b4;
+    /* Steel blue accent */
+}
+
+.habit-item.calendar-event:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: #2c3e50;
+    /* Darker heading color */
+    text-align: center;
+    font-size: 2.5em;
+    /* Larger font size */
+}
+
+#stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.stat-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    /* Slightly rounder corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    /* Deeper shadow */
+    transition: transform 0.2s, box-shadow 0.2s;
+    /* Add transition */
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+    /* Lift effect on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Enhanced shadow */
+}
+
+#habits-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.habit-item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    /* Slightly rounder corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    /* Deeper shadow */
+    transition: transform 0.2s, box-shadow 0.2s;
+    /* Add transition */
+}
+
+.habit-item:hover {
+    transform: translateY(-5px);
+    /* Lift effect on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Enhanced shadow */
+}
+
+.habit-item h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.button-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+button {
+    padding: 12px 24px;
+    /* Slightly larger button */
+    background-color: #2980b9;
+    /* Darker button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.3s, transform 0.2s;
+    /* Add transition */
+}
+
+button:hover {
+    background-color: #e6a336;
+    /* Darker on hover */
+    transform: scale(1.05);
+    /* Scale effect on hover */
+}
+
+.no-habits {
+    text-align: center;
+    padding: 50px;
+    background-color: white;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Shadow for emphasis */
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("/images/blob-scene-haikei\ \(1\).svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.2;
+    /* Adjust this value to control transparency */
+    z-index: -1;
+    /* This ensures it's behind the content */
+    pointer-events: none;
+    /* This prevents it from interfering with clicks */
+}

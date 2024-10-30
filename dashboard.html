@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Habitz Dashboard</title>
+    <link rel="stylesheet" href="css/styles-dashboard.css" />
+    <title>Habitz</title>
+    <!--Add PNG logo below-->
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+  </head>
+  <body>
+    <h1>Your Habits Dashboard</h1>
+
+    <button onclick="location.href='dashboard.html'" style="margin: 20px">
+      View Dashboard
+    </button>
+
+    <div class="button-container">
+      <button onclick="location.href='activities.html'">
+        Back to Activities
+      </button>
+      <button onclick="resetHabits()">Reset All Data</button>
+    </div>
+
+    <div id="stats-container"></div>
+
+    <h2>Your Tracked Habits</h2>
+    <div id="habits-list"></div>
+
+    <script src="js/progress.js"></script>
+    <script>
+      // Initialize dashboard when page loads
+      document.addEventListener("DOMContentLoaded", updateDashboard);
+    </script>
+  </body>
+</html>

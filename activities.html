@@ -16,6 +16,18 @@
     <link rel="icon" type="image/png" href="images/favicon.png" />
   </head>
   <body>
+    <div class="top-icons">
+      <a href="home.html" class="icon-link">
+        <img src="images/undraw_building_re_xfcm.svg" alt="Home" class="icon" />
+      </a>
+      <a href="dashboard.html" class="icon-link">
+        <img
+          src="images/undraw_dashboard_re_3b76.svg"
+          alt="Dashboard"
+          class="icon"
+        />
+      </a>
+    </div>
     <h1>Exercises and Techniques</h1>
     <p>
       Taking proper care of your physical and mental well-being is essential to
@@ -152,8 +164,6 @@
       </li>
     </ul>
 
-    <h2>Mental Health Exercises</h2>
-
     <h3>Cognitive-Behavioral Therapy Exercises</h3>
     <ul>
       <li>
@@ -274,7 +284,16 @@
         </button>
       </li>
     </ul>
-
+    <div id="habit-modal" class="modal">
+      <div class="modal-content">
+        <h2>Add Habit</h2>
+        <p id="selected-habit"></p>
+        <input type="date" id="habit-date" />
+        <input type="time" id="habit-time" />
+        <button onclick="confirmAddHabit()">Confirm</button>
+        <button onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
     <script src="js/progress.js"></script>
   </body>
 </html>
