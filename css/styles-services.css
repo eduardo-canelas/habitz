@@ -1,0 +1,140 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 20px;
+    background-color: #f7cac9;
+    /* sunset-inspired background color */
+    transition: background-color 0.5s ease;
+    position: relative;
+    /* Ensure relative positioning for ::before */
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("/images/blob-scene-haikei.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.2;
+    /* Adjust this value to control transparency */
+    z-index: -1;
+    /* This ensures it's behind the content */
+    pointer-events: none;
+    /* This prevents it from interfering with clicks */
+    animation: moveBackground 30s linear infinite;
+}
+
+header,
+footer {
+    animation: fadeIn 1s ease-in-out forwards;
+    opacity: 0;
+}
+
+@keyframes moveBackground {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    background: #ffd7be;
+    /* Updated header background color */
+    border-radius: 50px;
+    /* Added border-radius */
+    box-shadow: inset 29px 29px 7px #f5ceb6,
+        inset -29px -29px 7px #ffe0c6;
+    /* Updated box-shadow */
+    transition: background-color 0.5s ease;
+}
+
+header:hover {
+    background-color: #ffeecb;
+    /* lighter color on hover */
+}
+
+h1 {
+    color: #333;
+    /* Change text color for contrast */
+    font-size: 24px;
+    margin: 0;
+    /* Remove margin for better alignment */
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.service {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: calc(33.33% - 40px);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.service:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.service h2 {
+    margin-top: 0;
+    color: #666;
+}
+
+.service ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.service li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.service li:last-child {
+    border-bottom: none;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    /* sunset-inspired footer color */
+    border-top: 1px solid #ccc;
+    transition: background-color 0.5s ease;
+}
+
+footer:hover {
+    background-color: #ffeecb;
+    /* lighter sunset-inspired footer color on hover */
+}
+
+footer p {
+    font-size: 16px;
+    /* You can adjust the size as needed */
+}

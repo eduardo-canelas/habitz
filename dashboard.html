@@ -10,16 +10,23 @@
     <link rel="icon" type="image/png" href="images/favicon.png" />
   </head>
   <body>
+    <div class="top-icons">
+      <a href="home.html" class="icon-link">
+        <img src="images/undraw_building_re_xfcm.svg" alt="Home" class="icon" />
+      </a>
+      <a href="dashboard.html" class="icon-link">
+        <img
+          src="images/undraw_dashboard_re_3b76.svg"
+          alt="Dashboard"
+          class="icon"
+        />
+      </a>
+    </div>
     <h1>Your Habits Dashboard</h1>
-
-    <button onclick="location.href='dashboard.html'" style="margin: 20px">
-      View Dashboard
-    </button>
-
     <div class="button-container">
-      <button onclick="location.href='activities.html'">
-        Back to Activities
-      </button>
+      <button onclick="location.href='new-habit.html'">New Habit</button>
+      <button onclick="location.href='mood-tracker.html'">New Mood Log</button>
+      <button onclick="location.href='activities.html'">New Activitie</button>
       <button onclick="resetHabits()">Reset All Data</button>
     </div>
 
@@ -27,6 +34,11 @@
 
     <h2>Your Tracked Habits</h2>
     <div id="habits-list"></div>
+
+    <div id="calendar-container">
+      <h2>Calendar</h2>
+      <div id="calendar"></div>
+    </div>
 
     <script src="js/progress.js"></script>
     <script>

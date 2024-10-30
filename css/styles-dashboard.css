@@ -1,3 +1,57 @@
+.top-icons {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+}
+
+.icon-link {
+    margin-right: 20px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.icon {
+    width: 35px;
+    height: 35px;
+    transition: all 0.3s ease;
+    filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.2)) drop-shadow(-5px -5px 4px rgba(255, 255, 255, 0.8));
+}
+
+.icon-link:hover .icon {
+    transform: scale(1.15);
+    filter: drop-shadow(7px 7px 6px rgba(0, 0, 0, 0.25)) drop-shadow(-7px -7px 6px rgba(255, 255, 255, 0.9));
+}
+
+/* Optional tooltip styling */
+.icon-link::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.icon-link:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     /* Updated font */
@@ -136,4 +190,116 @@ body::before {
     /* This ensures it's behind the content */
     pointer-events: none;
     /* This prevents it from interfering with clicks */
+}
+
+#calendar-container {
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    /* Adjust based on your needs */
+}
+
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 15px;
+    /* Increased gap between cells */
+    margin: 20px auto;
+    padding: 15px;
+}
+
+.month-year {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Day header styles */
+.header {
+    font-weight: bold;
+    background-color: #f8f9fa;
+    padding: 10px;
+    text-align: center;
+    border-radius: 8px;
+    color: #2c3e50;
+}
+
+/* Individual day cell styles */
+.day {
+    min-height: 120px;
+    /* Increased height */
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.day:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.day-number {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #2c3e50;
+}
+
+/* Entry list styles */
+.entry-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.85em;
+}
+
+.entry-item {
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    margin: 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Special states */
+.day.empty {
+    background-color: transparent;
+    border: none;
+}
+
+.day.today {
+    background-color: #f8f9fa;
+    border: 2px solid #2980b9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #calendar {
+        gap: 8px;
+    }
+
+    .day {
+        min-height: 100px;
+        padding: 8px;
+    }
+
+    .day-number {
+        font-size: 1em;
+    }
+
+    .entry-list {
+        font-size: 0.75em;
+    }
 }
