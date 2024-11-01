@@ -77,11 +77,17 @@ function showNotification(message) {
 
 // Function to reset all habits (for dashboard)
 function resetHabits() {
+    console.log("resetHabits function called");
     if (confirm('Are you sure you want to reset all habit tracking data?')) {
+        console.log("User confirmed reset");
         localStorage.removeItem('habits');
+        console.log("habits removed from localStorage");
         updateDashboard();
+    } else {
+        console.log("Reset cancelled by user");
     }
 }
+
 function getMoodStats() {
     const moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
     const moodCounts = moodHistory.reduce((acc, entry) => {
@@ -96,8 +102,7 @@ function getMoodStats() {
     };
 }
 // Function to update dashboard displays
-// Function to update dashboard displays
-// Function to update dashboard displays
+
 function updateDashboard() {
     const habits = JSON.parse(localStorage.getItem('habits')) || {};
     const calendarEvents = JSON.parse(localStorage.getItem('events')) || [];
@@ -144,20 +149,22 @@ function updateDashboard() {
         habitsList.innerHTML = '';
         
         // Add regular habits
-        const sortedHabits = Object.entries(habits)
-            .sort(([,a], [,b]) => b.count - a.count);
-        
-        for (const [habit, data] of sortedHabits) {
-            const habitElement = document.createElement('div');
-            habitElement.className = 'habit-item';
-            habitElement.innerHTML = `
-                <h3>${habit}</h3>
-                <p>Times practiced: ${data.count}</p>
-                <p>First added: ${new Date(data.firstAdded).toLocaleDateString()}</p>
-                <p>Last practiced: ${new Date(data.lastUpdated).toLocaleDateString()}</p>
-            `;
-            habitsList.appendChild(habitElement);
-        }
+            const sortedHabits = Object.entries(habits).sort((a, b) => 
+        new Date(b[1].lastUpdated) - new Date(a[1].lastUpdated)
+    );
+
+    for (const [habit, data] of sortedHabits) {
+        const habitElement = document.createElement('div');
+        habitElement.className = 'habit-item';
+        habitElement.innerHTML = `
+            <h3>${habit}</h3>
+            <p>Times practiced: ${data.count}</p>
+            <p>First added: ${new Date(data.firstAdded).toLocaleDateString()}</p>
+            <p>Last practiced: ${new Date(data.lastUpdated).toLocaleDateString()}</p>
+            <button class="delete-habit-btn" onclick="deleteHabit('${habit}')">Delete</button>
+        `;
+        habitsList.appendChild(habitElement);
+    }
         
         // Add calendar events
         calendarEvents.forEach(dayEvent => {
@@ -168,6 +175,7 @@ function updateDashboard() {
                     <h3>${event.title}</h3>
                     <p>Scheduled Time: ${event.time}</p>
                     <p>Date: ${dayEvent.month}/${dayEvent.day}/${dayEvent.year}</p>
+                    
                 `;
                 habitsList.appendChild(eventElement);
             });
@@ -186,6 +194,7 @@ function updateDashboard() {
                             <h3>${entry.date}</h3>
                             <p>Mood: ${entry.mood}</p>
                             <p>Journal: ${entry.journal || 'No entry'}</p>
+                            <button class="delete-habit-btn" onclick="deleteMoodEntry('${entry.date}')">Delete</button>
                         </div>
                     `).join('')}
                 </div>
@@ -200,7 +209,38 @@ function updateDashboard() {
         createCalendar();
     }
 }
-
+function deleteMoodEntry(date) {
+    if (confirm('Are you sure you want to delete this mood entry?')) {
+        let moodHistory = JSON.parse(localStorage.getItem('moodHistory')) || [];
+        
+        // Filter out the mood entry with the matching date
+        moodHistory = moodHistory.filter(entry => entry.date !== date);
+        
+        // Save back to localStorage
+        localStorage.setItem('moodHistory', JSON.stringify(moodHistory));
+        
+        // Show feedback
+        showNotification('Mood entry deleted successfully');
+        
+        // Update the dashboard
+        updateDashboard();
+    }
+}
+function deleteHabit(habitName) {
+    if (confirm(`Are you sure you want to delete "${habitName}"?`)) {
+        // Get current habits from localStorage
+        let habits = JSON.parse(localStorage.getItem('habits')) || {};
+        
+        // Delete the specific habit
+        delete habits[habitName];
+        
+        // Save back to localStorage
+        localStorage.setItem('habits', JSON.stringify(habits));
+        
+        // Update the dashboard
+        updateDashboard();
+    }
+}
 function createCalendar() {
     const calendar = document.getElementById('calendar');
     if (!calendar) {
@@ -239,9 +279,14 @@ function createCalendar() {
         calendar.appendChild(emptyCell);
     }
 
+    // Get all data from localStorage
     const habits = JSON.parse(localStorage.getItem('habits')) || {};
     const calendarEvents = JSON.parse(localStorage.getItem('events')) || [];
     const moodHistory = JSON.parse(localStorage.getItem('moodHistory')) || [];
+    const checkedCommonHabits = JSON.parse(localStorage.getItem('checkedCommonHabits')) || [];
+    
+    // Debug log to check data
+    console.log('Checked Common Habits:', checkedCommonHabits);
 
     // Create calendar days
     for (let day = 1; day <= daysInMonth; day++) {
@@ -268,13 +313,27 @@ function createCalendar() {
         // Get mood for this day
         const moodForDay = moodHistory.find(mood => mood.date === dateString);
 
-        // Populate day cell with data
+        // Get common habits for this day
+        const commonHabitsForDay = checkedCommonHabits.filter(habit => 
+            habit.completedDate && habit.completedDate.startsWith(dateString)
+        ).map(habit => habit.name);
+
+        // Debug log for each day
+        console.log(`Date ${dateString}:`, {
+            habits: habitsForDay,
+            events: eventsForDay,
+            mood: moodForDay,
+            commonHabits: commonHabitsForDay
+        });
+
+        // Populate day cell with all data
         dayCell.innerHTML = `
             <span class="day-number">${day}</span>
             <div class="entry-list">
                 ${habitsForDay.map(habit => `<div class="entry-item habit">${habit}</div>`).join('')}
                 ${eventsForDay.map(event => `<div class="entry-item event">${event.title}</div>`).join('')}
                 ${moodForDay ? `<div class="entry-item mood">${getMoodEmoji(moodForDay.mood)}</div>` : ''}
+                ${commonHabitsForDay.map(habit => `<div class="entry-item common-habit">${habit}</div>`).join('')}
             </div>
         `;
 

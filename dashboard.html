@@ -27,10 +27,14 @@
       <button onclick="location.href='new-habit.html'">New Habit</button>
       <button onclick="location.href='mood-tracker.html'">New Mood Log</button>
       <button onclick="location.href='activities.html'">New Activitie</button>
+      <button onclick="location.href='common-habits.html'">
+        Common-Habit Checklist
+      </button>
       <button onclick="resetHabits()">Reset All Data</button>
     </div>
 
     <div id="stats-container"></div>
+    <div id="common-habits-stats"></div>
 
     <h2>Your Tracked Habits</h2>
     <div id="habits-list"></div>
@@ -41,6 +45,7 @@
     </div>
 
     <script src="js/progress.js"></script>
+    <script src="js/common-habits.js"></script>
     <script>
       // Initialize dashboard when page loads
       document.addEventListener("DOMContentLoaded", updateDashboard);
