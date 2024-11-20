@@ -83,6 +83,49 @@ body {
     color: #333;
 }
 
+/* Button Style */
+.button {
+    margin-left: 3em;
+    background-color: #00796b;
+    /* Dark teal background */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    border-radius: 5px;
+    /* Slightly rounded corners */
+    padding: 12px 24px;
+    /* Vertical and horizontal padding */
+    font-size: 1rem;
+    /* Font size */
+    font-family: 'Open Sans', sans-serif;
+    /* Font family */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* Smooth transitions */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+}
+
+/* Hover Effect */
+.button:hover {
+    background-color: #004d40;
+    /* Darker teal on hover */
+    transform: translateY(-2px);
+    /* Slight lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    /* Enhanced shadow on hover */
+}
+
+/* Focus Effect */
+.button:focus {
+    outline: none;
+    /* Remove default outline */
+    box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.5);
+    /* Focus ring */
+}
+
 /* Global Styles */
 h1 {
     text-align: center;
