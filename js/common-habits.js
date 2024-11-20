@@ -15,8 +15,12 @@ function saveCheckedHabits() {
         }
     });
     
-    localStorage.setItem('checkedCommonHabits', JSON.stringify(checkedHabits));
-    console.log('Saved common habits:', checkedHabits); // Debug log
+    // Save unique habits only
+    const existingHabits = JSON.parse(localStorage.getItem('checkedCommonHabits')) || [];
+    const combinedHabits = [...new Map([...existingHabits, ...checkedHabits].map(item => [item.name, item])).values()];
+    
+    localStorage.setItem('checkedCommonHabits', JSON.stringify(combinedHabits));
+    console.log('Saved common habits:', combinedHabits); // Debug log
 }
 
 // Add event listeners to checkboxes

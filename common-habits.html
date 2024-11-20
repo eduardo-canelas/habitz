@@ -355,21 +355,5 @@
     </div>
 
     <script src="js/common-habits.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Get checked habits from localStorage
-        const checkedHabits =
-          JSON.parse(localStorage.getItem("checkedCommonHabits")) || [];
-
-        // Get all checkboxes
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-        // Set checked state based on localStorage
-        checkboxes.forEach((checkbox) => {
-          const habitName = checkbox.parentElement.textContent.trim();
-          checkbox.checked = checkedHabits.includes(habitName);
-        });
-      });
-    </script>
   </body>
 </html>
