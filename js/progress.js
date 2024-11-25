@@ -102,19 +102,18 @@ function getMoodStats() {
     };
 }
 // Function to update dashboard displays
-
 function updateDashboard() {
     const habits = JSON.parse(localStorage.getItem('habits')) || {};
     const calendarEvents = JSON.parse(localStorage.getItem('events')) || [];
     const habitsList = document.getElementById('habits-list');
     const statsContainer = document.getElementById('stats-container');
-    const moodStats = getMoodStats();
-    
+    const moodStats = getMoodStats(); // Get mood statistics
+
     // Update stats
     const totalActivities = Object.values(habits).reduce((sum, habit) => sum + habit.count, 0);
     const uniqueHabits = Object.keys(habits).length;
     const calendarHabits = calendarEvents.reduce((sum, day) => sum + day.events.length, 0);
-    
+
     // Update stats container
     statsContainer.innerHTML = `
         <div class="stat-box">
@@ -133,12 +132,19 @@ function updateDashboard() {
             <h3>Mood Tracking</h3>
             <p>${moodStats.totalEntries}</p>
             <small>Total mood entries</small>
-            <p class="most-frequent">Most frequent: ${moodStats.mostFrequentMood}</p>
+            <p class="most-frequent"> ${moodStats.mostFrequentMood}</p>
         </div>
     `;
-    
-    // Update habits list
-    if (Object.keys(habits).length === 0 && calendarEvents.length === 0) {
+
+    // Clear habits list
+    habitsList.innerHTML = '';
+
+    // Add regular habits
+    const sortedHabits = Object.entries(habits).sort((a, b) => 
+        new Date(b[1].lastUpdated) - new Date(a[1].lastUpdated)
+    );
+
+    if (sortedHabits.length === 0) {
         habitsList.innerHTML = `
             <div class="no-habits">
                 <h3>No habits tracked yet</h3>
@@ -146,67 +152,56 @@ function updateDashboard() {
             </div>
         `;
     } else {
-        habitsList.innerHTML = '';
-        
-        // Add regular habits
-            const sortedHabits = Object.entries(habits).sort((a, b) => 
-        new Date(b[1].lastUpdated) - new Date(a[1].lastUpdated)
-    );
-
-    for (const [habit, data] of sortedHabits) {
-        const habitElement = document.createElement('div');
-        habitElement.className = 'habit-item';
-        habitElement.innerHTML = `
-            <h3>${habit}</h3>
-            <p>Times practiced: ${data.count}</p>
-            <p>First added: ${new Date(data.firstAdded).toLocaleDateString()}</p>
-            <p>Last practiced: ${new Date(data.lastUpdated).toLocaleDateString()}</p>
-            <button class="delete-habit-btn" onclick="deleteHabit('${habit}')">Delete</button>
-        `;
-        habitsList.appendChild(habitElement);
-    }
-        
-        // Add calendar events
-        calendarEvents.forEach(dayEvent => {
-            dayEvent.events.forEach(event => {
-                const eventElement = document.createElement('div');
-                eventElement.className = 'habit-item calendar-event';
-                eventElement.innerHTML = `
-                    <h3>${event.title}</h3>
-                    <p>Scheduled Time: ${event.time}</p>
-                    <p>Date: ${dayEvent.month}/${dayEvent.day}/${dayEvent.year}</p>
-                    
-                `;
-                habitsList.appendChild(eventElement);
-            });
-        });
-
-        // Add mood history
-        const moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
-        if (moodHistory.length > 0) {
-            const moodSection = document.createElement('div');
-            moodSection.className = 'mood-section';
-            moodSection.innerHTML = `
-                <h2>Recent Mood Entries</h2>
-                <div class="mood-entries">
-                    ${moodHistory.slice(-5).reverse().map(entry => `
-                        <div class="habit-item mood-entry">
-                            <h3>${entry.date}</h3>
-                            <p>Mood: ${entry.mood}</p>
-                            <p>Journal: ${entry.journal || 'No entry'}</p>
-                            <button class="delete-habit-btn" onclick="deleteMoodEntry('${entry.date}')">Delete</button>
-                        </div>
-                    `).join('')}
-                </div>
+        for (const [habit, data] of sortedHabits) {
+            const habitElement = document.createElement('div');
+            habitElement.className = 'habit-item';
+            habitElement.innerHTML = `
+                <h3>${habit}</h3>
+                <p>Times practiced: ${data.count}</p>
+                <p>First added: ${new Date(data.firstAdded).toLocaleDateString()}</p>
+                <p>Last practiced: ${new Date(data.lastUpdated).toLocaleDateString()}</p>
+                <button class="delete-habit-btn" onclick="deleteHabit('${habit}')">Delete</button>
             `;
-            habitsList.appendChild(moodSection);
+            habitsList.appendChild(habitElement);
         }
     }
 
-    // Create calendar if the element exists
+    // Create mood section separately
+    const moodSection = document.createElement('div');
+    moodSection.className = 'mood-section';
+    moodSection.innerHTML = `<h2>Recent Mood Entries</h2>`;
+
+    // Add mood history regardless of habits
+    const moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
+    if (moodHistory.length > 0) {
+        moodSection.innerHTML += `
+            <div class="mood-entries">
+                ${moodHistory.slice(-5).reverse().map(entry => `
+                    <div class="habit-item mood-entry">
+                        <h3>${entry.date}</h3>
+                        <p>Mood: ${entry.mood}</p>
+                        <p>Journal: ${entry.journal || 'No entry'}</p>
+                        <button class="delete-habit-btn" onclick="deleteMoodEntry('${entry.date}')">Delete</button>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    } else {
+        // This message will now be displayed correctly if there are no mood entries
+        moodSection.innerHTML += `
+            <div class="no-habits">
+                <h3>No mood entries yet</h3>
+                <p>Start tracking your mood to see your entries here!</p>
+            </div>
+        `;
+    }
+
+    // Append the mood section to the habits list (or another appropriate container)
+    habitsList.appendChild(moodSection);
+    // Update calendar display if the element exists
     const calendarElement = document.getElementById('calendar');
     if (calendarElement) {
-        createCalendar();
+        createCalendar(); // Call to create the calendar
     }
 }
 function deleteMoodEntry(date) {

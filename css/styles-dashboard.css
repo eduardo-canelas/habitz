@@ -595,6 +595,10 @@ p {
 }
 
 .no-habits p {
+    display: inline-block;
+    /* Optional: Makes the paragraph behave like an inline block */
+    margin: 0;
+    /* Resets margin if needed */
     color: #4a5568;
     font-size: 0.9rem;
     margin-bottom: 0.3rem;
