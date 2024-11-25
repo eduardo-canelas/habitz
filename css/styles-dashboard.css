@@ -5,7 +5,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url("/images/blob-scene-haikei\ \(1\).svg");
+    background-image: url(/images/blob-scene-haikei.svg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -22,7 +22,7 @@ body::before {
 }
 
 body {
-    background-color: #f5f7fa;
+    /*background-color: #f5f7fa;*/
     color: #2d3748;
     line-height: 1.6;
     padding: 2rem;
@@ -30,6 +30,68 @@ body {
     margin: 0 auto;
 }
 
+.day-details-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 70%;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.close-modal {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.entry-list {
+    margin-bottom: 20px;
+}
+
+.entry-item {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.entry-item.habit {
+    background-color: #e6f2ff;
+}
+
+.entry-item.event {
+    background-color: #e6ffe6;
+}
+
+.entry-item.mood {
+    background-color: #fff2e6;
+}
+
+.entry-item.common-habit {
+    background-color: #f2e6ff;
+}
 /* Top navigation icons */
 .top-icons {
     display: flex;

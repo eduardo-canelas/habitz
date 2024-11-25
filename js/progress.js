@@ -363,31 +363,99 @@ function getMoodEmoji(mood) {
 
 // Function to display details for the selected day
 function showDayDetails(day, month, year) {
+    // Create modal
+    const modal = document.createElement('div');
+    modal.className = 'day-details-modal';
+
+    // Format date string
+    const dateString = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    
+    // Get all relevant data
     const habits = JSON.parse(localStorage.getItem('habits')) || {};
     const calendarEvents = JSON.parse(localStorage.getItem('events')) || [];
     const moodHistory = JSON.parse(localStorage.getItem('moodHistory')) || [];
+    const checkedCommonHabits = JSON.parse(localStorage.getItem('checkedCommonHabits')) || [];
 
-    const dateString = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-    
-    // Get habits for this day
-    const habitsForDay = getHabitsForDay(habits, dateString);
-    
-    // Get events for this day
-    const eventsForDay = calendarEvents.filter(event => 
-        event.year === year && 
-        event.month === month + 1 && 
-        event.day === day
-    ).flatMap(event => event.events);
-    
-    // Get mood for this day
+    // Filter data for the specific day
+    const habitsForDay = Object.entries(habits)
+        .filter(([_, habitData]) => 
+            habitData.dateTimes.some(dateTime => dateTime.startsWith(dateString))
+        )
+        .map(([habitName, _]) => habitName);
+
+    const eventsForDay = calendarEvents
+        .filter(event => 
+            event.year === year && 
+            event.month === month + 1 && 
+            event.day === day
+        )
+        .flatMap(event => event.events);
+
     const moodForDay = moodHistory.find(mood => mood.date === dateString);
 
-    // Display details in a modal or a separate section
-    // For this example, we'll just log the details to the console
-    console.log(`Day: ${day} ${new Date(year, month, day).toLocaleString('default', { month: 'long' })} ${year}`);
-    console.log(`Habits: ${habitsForDay.join(', ')}`);
-    console.log(`Events: ${eventsForDay.join(', ')}`);
-    console.log(`Mood: ${moodForDay ? moodForDay.mood : 'None'}`);
+    const commonHabitsForDay = checkedCommonHabits
+        .filter(habit => 
+            habit.completedDate && habit.completedDate.startsWith(dateString)
+        )
+        .map(habit => habit.name);
+
+    // Create modal content
+    modal.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Details for ${month + 1}/${day}/${year}</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>Activities</h3>
+                <div class="entry-list habits">
+                    ${habitsForDay.length > 0 
+                        ? habitsForDay.map(habit => `<div class="entry-item habit">${habit}</div>`).join('') 
+                        : '<p>No activities tracked this day</p>'}
+                </div>
+
+                <h3>Custom Habits</h3>
+                <div class="entry-list events">
+                    ${eventsForDay.length > 0 
+                        ? eventsForDay.map(event => `<div class="entry-item event">${event.title}</div>`).join('') 
+                        : '<p>No new added habits scheduled this day</p>'}
+                </div>
+
+                <h3>Mood</h3>
+                <div class="entry-list mood">
+                    ${moodForDay 
+                        ? `<div class="entry-item mood">
+                            ${getMoodEmoji(moodForDay.mood)} ${moodForDay.mood}
+                            ${moodForDay.journal ? `<p>Journal: ${moodForDay.journal}</p>` : ''}
+                           </div>` 
+                        : '<p>No mood entry for this day</p>'}
+                </div>
+
+                <h3>Common Habits</h3>
+                <div class="entry-list common-habits">
+                    ${commonHabitsForDay.length > 0 
+                        ? commonHabitsForDay.map(habit => `<div class="entry-item common-habit">${habit}</div>`).join('') 
+                        : '<p>No common habits completed this day</p>'}
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Add to body
+    document.body.appendChild(modal);
+
+    // Close modal functionality
+    const closeBtn = modal.querySelector('.close-modal');
+    closeBtn.addEventListener('click', () => {
+        document.body.removeChild(modal);
+    });
+
+    // Close when clicking outside
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            document.body.removeChild(modal);
+        }
+    });
 }
 // Test function to verify JavaScript is working
 function testFunction() {
