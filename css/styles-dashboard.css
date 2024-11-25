@@ -8,12 +8,30 @@
 }
 
 body {
-    /*background-color: #f5f7fa;*/
+    background-color: #f5f7fa;
     color: #2d3748;
     line-height: 1.6;
     padding: 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
+    /* Add this */
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(/images/blob-scene-haikei.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.2;
+    z-index: -1;
+    pointer-events: none;
 }
 
 .day-details-modal {
