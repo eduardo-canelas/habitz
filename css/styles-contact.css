@@ -65,8 +65,8 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Open Sans', sans-serif;
-    background-color: #e0f7fa;
-    /* Light teal background for a calming effect */
+    background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+    /* Sunset gradient background */
     color: #333;
 }
 
@@ -79,14 +79,15 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+    animation: fadeIn 1s ease-in-out;
 }
 
 h1 {
     font-family: 'Caveat', cursive;
     font-size: 3em;
     margin-bottom: 20px;
-    color: #00796b;
-    /* Calming dark teal color */
+    color: #ff6f61;
+    /* Sunset orange color */
 }
 
 .contact-info {
@@ -96,28 +97,89 @@ h1 {
 }
 
 .contact-item {
-    background-color: #b2dfdb;
-    /* Soft teal background */
-    border: 1px solid #80cbc4;
-    /* Slightly darker teal border */
+    background-color: #ffe0b2;
+    /* Soft orange background */
+    border: 1px solid #ffcc80;
+    /* Slightly darker orange border */
     border-radius: 8px;
     padding: 15px;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .contact-item:hover {
-    background-color: #a2dfc5;
-    /* Slightly lighter teal on hover */
+    background-color: #ffd180;
+    /* Slightly lighter orange on hover */
     transform: translateY(-3px);
 }
 
 .contact-item a {
-    color: #004d40;
-    /* Dark teal color for links */
+    color: #e65100;
+    /* Dark orange color for links */
     text-decoration: none;
     font-weight: bold;
 }
 
 .contact-item a:hover {
     text-decoration: underline;
+}
+
+/* Form styling */
+.contact-form {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group label {
+    font-size: 1.2em;
+    color: #ff6f61;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 10px;
+    border: 1px solid #ffcc80;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #ff6f61;
+    box-shadow: 0 0 8px rgba(255, 111, 97, 0.3);
+    outline: none;
+}
+
+button[type="submit"] {
+    padding: 15px 30px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #e65100;
+    transform: translateY(-3px);
+}
+
+/* Add some animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

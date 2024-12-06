@@ -300,3 +300,158 @@ li {
         opacity: 1;
     }
 }
+/* Responsive Design for Smartphones */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 20px;
+        margin: 0 auto;
+        width: 100%;
+        box-shadow: none;
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .top-icons {
+        top: 10px;
+        left: 10px;
+    }
+
+    .icon {
+        width: 25px;
+        height: 25px;
+    }
+
+    .icon-link {
+        margin-right: 10px;
+    }
+
+    .contact-form,
+    .form-group,
+    .contact-info,
+    .contact-item,
+    .button-container,
+    .habit-item,
+    .stat-box,
+    .entry-item,
+    .calendar,
+    .day,
+    .mood-list,
+    .mood-item,
+    .mood-history li {
+        width: 100%;
+        margin: 0 auto;
+        padding: 10px;
+        box-shadow: none;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    button[type="submit"],
+    .habit-button,
+    .dashboard-button,
+    .delete-habit-btn,
+    .edit-btn,
+    .delete-btn,
+    #save-mood {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    .calendar .days .day {
+        height: 60px;
+    }
+
+    .calendar .month,
+    .calendar .weekdays {
+        padding: 0 10px;
+    }
+
+    .calendar .goto-today {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .calendar .goto-today .goto input,
+    .calendar .goto-today button {
+        width: 100%;
+    }
+
+    .service {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .about-content p {
+        padding: 10px;
+    }
+
+    .tracker {
+        padding: 15px;
+    }
+
+    .mood-item {
+        max-width: 80px;
+        height: 80px;
+    }
+
+    .mood-label {
+        font-size: 0.7em;
+    }
+
+    .modal-content {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .modal-content input,
+    .modal-content button {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .form-box {
+        width: 90%;
+        padding: 1.5rem;
+    }
+
+    .form-box:hover {
+        transform: none;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    #icons {
+        grid-template-columns: 1fr;
+    }
+
+    .icon-section {
+        transform: none;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .icon-section:hover {
+        transform: none;
+    }
+}
