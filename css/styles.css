@@ -102,11 +102,14 @@ body {
     background-image: url(../images/background-image.jpg);
     height: 100%;
     background-repeat: no-repeat;
+    overflow-y: auto;
     background-size: cover;
     background-color: rgb(225, 227, 227);
     background-blend-mode: lighten;
     text-align: center;
     font-family: "Caveat", "Open Sans", sans-serif;
+    padding: 20px;
+    margin: 0;
 }
 
 #icons {
@@ -121,7 +124,6 @@ body {
 }
 
 .icon-section h3 {
-
     margin: 0.9em;
     font-size: 0.3em;
     font-weight: bold;
@@ -164,6 +166,37 @@ a:hover {
 
 /* MEDIA QUERIES
 ---------------------------------------------*/
+@media only screen and (max-width: 320px) {
+    #subtitle {
+        font-size: 0.5rem;
+        /* Small font size */
+        line-height: 1;
+        /* Adjust line height */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 0;
+        margin: 20px 0;
+        position: relative;
+    }
+
+    footer p {
+        font-size: 0.5rem;
+        /* Small font size */
+        line-height: 1;
+        /* Adjust line height */
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 0;
+        margin: 40px 0 20px 0;
+        /* Ensure there's enough space above the footer */
+        position: relative;
+    }
+
+    footer {
+        margin-top: 40px;
+        /* Ensure there's space above the footer */
+    }
+}
 @media (max-width: 768px) {
     #icons {
         grid-template-columns: repeat(2, 1fr);
@@ -175,6 +208,7 @@ a:hover {
         grid-template-columns: 1fr;
     }
 }
+
 /* Responsive Design for Smartphones */
 @media (max-width: 768px) {
     body {
@@ -328,5 +362,52 @@ a:hover {
 
     .icon-section:hover {
         transform: none;
+    }
+
+#title,
+#subtitle,
+#add-new-habit,
+footer {
+    margin-bottom: 20px;
+    /* Add margin to separate elements */
+}
+
+/* Footer styles */
+    footer {
+        margin-top: 40px;
+        /* Ensure there's space above the footer */
+        padding: 10px;
+        text-align: center;
+    }
+
+    /* Media Queries */
+    @media (max-width: 480px) {
+        body {
+            padding: 10px;
+            /* Reduce padding for smaller screens */
+        }
+
+        #title {
+            font-size: 2rem;
+            /* Adjust font size for smaller screens */
+        }
+
+        #subtitle {
+            font-size: 1.5rem;
+            /* Adjust subtitle size */
+            margin-top: 20px;
+            /* Ensure space above subtitle */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        footer {
+            margin-top: 20px;
+            /* Adjust footer margin */
+            font-size: 0.9rem;
+            /* Smaller font size for footer */
+            word-wrap: break-word;
+                overflow-wrap: break-word;
+        }
     }
 }
