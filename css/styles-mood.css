@@ -1,62 +1,16 @@
-.top-icons {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    display: flex;
-    align-items: center;
-    z-index: 100;
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.icon-link {
-    margin-right: 20px;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    padding: 5px;
-}
-
-.icon {
-    width: 35px;
-    height: 35px;
-    transition: all 0.3s ease;
-    filter: drop-shadow(5px 5px 4px rgba(0, 0, 0, 0.2)) drop-shadow(-5px -5px 4px rgba(255, 255, 255, 0.8));
-}
-
-.icon-link:hover .icon {
-    transform: scale(1.15);
-    filter: drop-shadow(7px 7px 6px rgba(0, 0, 0, 0.25)) drop-shadow(-7px -7px 6px rgba(255, 255, 255, 0.9));
-}
-
-/* Optional tooltip styling */
-.icon-link::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 14px;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.icon-link:hover::after {
-    opacity: 1;
-    visibility: visible;
-}
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e9ecef;
-    /* Light gray background for a subtle look */
+    background-color: #f4f4f4;
+    color: #333;
 }
 
 body::before {
@@ -71,11 +25,8 @@ body::before {
     background-repeat: no-repeat;
     background-position: center;
     opacity: 0.2;
-    /* Adjust this value to control transparency */
     z-index: -1;
-    /* This ensures it's behind the content */
     pointer-events: none;
-    /* This prevents it from interfering with clicks */
 }
 
 .top-icons {
@@ -135,16 +86,14 @@ body::before {
 h1 {
     text-align: center;
     color: #343a40;
-    /* Darker gray for better readability */
     margin-bottom: 15px;
     font-size: 2.5em;
-    /* Increased font size for prominence */
 }
 
 h3 {
     color: #495057;
-    /* Slightly lighter gray for hierarchy */
     margin-bottom: 25px;
+    margin-top: 100px;
     font-size: 1.6em;
     text-align: center;
 }
@@ -153,47 +102,58 @@ h3 {
     max-width: 900px;
     margin: 40px auto;
     padding: 25px;
-    background-color: #ffffff;
-    /* White background for contrast */
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    /* Softer shadow for depth */
 }
 
 .mood-list {
     display: flex;
     justify-content: space-around;
     margin: 25px 0;
+    gap: 20px; /* Add gap between items */
 }
 
 .mood-item {
     text-align: center;
     cursor: pointer;
     padding: 20px;
+    padding-top: 40px; /* Add more space at the top */
     border-radius: 50%;
-    background-color: #f0f4ff;
-    /* Soft blue background */
+    background-color: rgba(255, 183, 77, 0.2); /* Soft sunset color */
     font-size: 2em;
-    /* Larger font size for clarity */
     transition: background-color 0.3s ease, transform 0.2s;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex: 1; /* Make all items take equal space */
+    max-width: 100px; /* Ensure a maximum size */
+    height: 100px; /* Ensure a fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* For positioning the label */
 }
 
 .mood-item:hover {
-    background-color: #cce5ff;
-    /* Light blue on hover */
+    background-color: rgba(255, 183, 77, 0.4); /* Slightly darker sunset color on hover */
     transform: scale(1.05);
 }
 
 .mood-item.selected {
-    background-color: #b8daff;
-    /* Highlight selected mood */
+    background-color: rgba(255, 183, 77, 0.6); /* Highlight selected mood */
     transform: scale(1.1);
 }
 
+.mood-label {
+    position: absolute;
+    bottom: -30px; /* Move the label further up */
+    width: 100%;
+    text-align: center;
+    font-size: 0.8em;
+    color: #495057;
+}
+
 #save-mood {
-    background-color: #007bff;
-    /* Bootstrap primary blue */
+    background-color: rgba(255, 87, 34, 0.8); /* Sunset orange */
     color: white;
     border: none;
     padding: 12px 24px;
@@ -204,13 +164,11 @@ h3 {
     margin-left: auto;
     margin-right: auto;
     font-size: 1.2em;
-    /* Slightly larger font for buttons */
     transition: background-color 0.3s ease;
 }
 
 #save-mood:hover {
-    background-color: #0056b3;
-    /* Darker blue on hover */
+    background-color: rgba(255, 87, 34, 1); /* Darker sunset orange on hover */
 }
 
 .mood-history {
@@ -224,26 +182,22 @@ h3 {
 
 .mood-history li {
     padding: 15px;
-    background-color: #f8f9fa;
-    /* Light gray for list items */
+    background-color: rgba(255, 255, 255, 0.8);
     margin-bottom: 15px;
     border-radius: 8px;
-    border: 1px solid #dee2e6;
-    /* Subtle border for separation */
+    border: 1px solid rgba(222, 226, 230, 0.8);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .mood-history li:nth-child(odd) {
-    background-color: #e9ecef;
-    /* Alternating background for readability */
+    background-color: rgba(233, 236, 239, 0.8);
 }
 
 .mood-history li .edit-btn,
 .delete-btn {
-    background-color: #dc3545;
-    /* Bootstrap danger red */
+    background-color: rgba(220, 53, 69, 0.8); /* Sunset red */
     border: none;
     color: white;
     padding: 6px 12px;
@@ -255,18 +209,39 @@ h3 {
 
 .mood-history li .edit-btn:hover,
 .delete-btn:hover {
-    background-color: #c82333;
-    /* Darker red on hover */
+    background-color: rgba(220, 53, 69, 1); /* Darker sunset red on hover */
 }
 
 .mood-history li .edit-btn {
-    background-color: #007bff;
-    /* Bootstrap primary blue for edit button */
+    background-color: rgba(255, 87, 34, 0.8); /* Sunset orange for edit button */
 }
 
 .mood-history li .edit-btn:hover {
-    background-color: #0056b3;
-    /* Darker blue on hover */
+    background-color: rgba(255, 87, 34, 1); /* Darker sunset orange on hover */
+}
+
+label {
+    display: block;
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #495057;
+}
+
+#mood-date {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(222, 226, 230, 0.8);
+    font-size: 1em;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+#mood-date:focus {
+    border-color: rgba(255, 87, 34, 0.8); /* Sunset orange on focus */
+    outline: none;
 }
 
 #mood-journal {
@@ -274,9 +249,18 @@ h3 {
     padding: 12px;
     margin-top: 15px;
     border-radius: 8px;
-    border: 1px solid #dee2e6;
-    /* Subtle border for text area */
+    border: 1px solid rgba(222, 226, 230, 0.8);
     font-size: 1em;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+    min-height: 150px;
+    resize: vertical;
+}
+
+#mood-journal:focus {
+    border-color: rgba(255, 87, 34, 0.8); /* Sunset orange on focus */
+    outline: none;
 }
 
 #calendar {

@@ -46,22 +46,67 @@ function loadCheckedHabits() {
     
     checkboxes.forEach(checkbox => {
         const habitName = checkbox.parentElement.textContent.trim();
-        const isChecked = checkedHabits.includes(habitName);
+        const isChecked = checkedHabits.some(habit => habit.name === habitName);
         checkbox.checked = isChecked;
         console.log(`Checkbox ${habitName}: ${isChecked ? 'checked' : 'unchecked'}`); // Debug log
     });
 }
 
-// Event listener for checkbox changes
-document.addEventListener('change', function(e) {
-    if (e.target.matches('.habit-item input[type="checkbox"]')) {
-        console.log('Checkbox changed'); // Add this line
-        saveCheckedHabits();
+// Function to create and display the modal with checked habits
+function showCheckedHabitsModal() {
+    const checkedHabits = JSON.parse(localStorage.getItem('checkedCommonHabits')) || [];
+    
+    // Create modal elements
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('modal-content');
+    
+    const modalHeader = document.createElement('div');
+    modalHeader.classList.add('modal-header');
+    modalHeader.innerHTML = '<h2>Checked Habits</h2><span class="close-modal">&times;</span>';
+    
+    const modalBody = document.createElement('div');
+    modalBody.classList.add('modal-body');
+    
+    if (checkedHabits.length > 0) {
+        const habitList = document.createElement('ul');
+        checkedHabits.forEach(habit => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${habit.name} (Completed on: ${habit.completedDate})`;
+            habitList.appendChild(listItem);
+        });
+        modalBody.appendChild(habitList);
+    } else {
+        modalBody.innerHTML = '<p>No habits completed yet.</p>';
+    }
+    
+    modalContent.appendChild(modalHeader);
+    modalContent.appendChild(modalBody);
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+    
+    // Close modal on click of close button
+    modalHeader.querySelector('.close-modal').addEventListener('click', () => {
+        document.body.removeChild(modal);
+    });
+    
+    // Close modal on click outside of modal content
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            document.body.removeChild(modal);
+        }
+    });
+}
+
+// Add event listener to stat-box to show modal on click
+document.addEventListener('DOMContentLoaded', () => {
+    const statBox = document.querySelector('.stat-box');
+    if (statBox) {
+        statBox.addEventListener('click', showCheckedHabitsModal);
     }
 });
-
-// Load checked habits when the page loads
-document.addEventListener('DOMContentLoaded', loadCheckedHabits);
 
 // Function to display habit count on dashboard
 function displayHabitCount() {

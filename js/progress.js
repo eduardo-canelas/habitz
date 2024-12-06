@@ -22,7 +22,7 @@ function confirmAddHabit() {
         showNotification('Please select both date and time');
         return;
     }
-
+    
     const selectedDateTime = new Date(`${habitDate}T${habitTime}`);
     
     // Get existing habits from localStorage
@@ -117,11 +117,11 @@ function updateDashboard() {
     // Update stats container
     statsContainer.innerHTML = `
         <div class="stat-box">
-            <h3>Total Activities</h3>
+            <h3>Total Habits & Activities</h3>
             <p>${totalActivities + calendarHabits}</p>
         </div>
         <div class="stat-box">
-            <h3>Unique Habits</h3>
+            <h3>Activities</h3>
             <p>${uniqueHabits}</p>
         </div>
         <div class="stat-box">
@@ -462,3 +462,30 @@ function testFunction() {
     console.log("JavaScript is working!");
     showNotification("Test notification");
 }
+
+// Add to progress.js
+function initializeCalendarHint() {
+    const calendarContainer = document.getElementById('calendar-container');
+    if (!calendarContainer) return;
+
+    const hint = document.createElement('div');
+    hint.className = 'calendar-hint';
+    hint.innerHTML = `
+        <i class="fas fa-lightbulb"></i>
+        <span>Pro tip: Click any day to see detailed habit information!</span>
+        <button class="hint-dismiss">Got it!</button>
+    `;
+
+    calendarContainer.insertBefore(hint, calendarContainer.firstChild);
+
+    const dismissBtn = hint.querySelector('.hint-dismiss');
+    dismissBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        hint.classList.add('dismissing');
+        localStorage.setItem('calendarHintSeen', 'true');
+        setTimeout(() => hint.remove(), 300);
+    });
+}
+
+// Call this when page loads
+document.addEventListener('DOMContentLoaded', initializeCalendarHint);

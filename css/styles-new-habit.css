@@ -52,7 +52,16 @@
     visibility: visible;
 }
 :root {
-    --primary-clr: #b38add;
+    --primary-clr: #ff7e5f;
+    /* Sunset gradient color */
+    --secondary-clr: #feb47b;
+    /* Complementary sunset color */
+    --background-clr: #f9f9f9;
+    /* Soft background color */
+    --text-clr: #373c4f;
+    /* Darker text for contrast */
+    --tooltip-bg: rgba(255, 255, 255, 0.9);
+    /* Tooltip background */
 }
 
 * {
@@ -64,7 +73,7 @@
 
 /* nice scroll bar */
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -84,7 +93,9 @@ body {
     align-items: center;
     justify-content: center;
     padding-bottom: 30px;
-    background-color: #e2e1dc;
+    background-color: var(--background-clr);
+    transition: background-color 0.5s ease;
+    /* Smooth background transition */
 }
 
 .container {
@@ -93,11 +104,13 @@ body {
     min-height: 850px;
     margin: 0 auto;
     padding: 5px;
-    color: #fff;
+    color: var(--text-clr);
     display: flex;
-
     border-radius: 10px;
-    background-color: #373c4f;
+    background-color: #fff;
+    /* Light background for container */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    /* Soft shadow for depth */
 }
 
 .left {
@@ -116,9 +129,11 @@ body {
     color: #878895;
     border-radius: 5px;
     background-color: #fff;
+    transition: background-color 0.3s ease;
+    /* Smooth transition for calendar */
 }
 
-/* set after behind the main element */
+/* Set after behind the main element */
 .calendar::before,
 .calendar::after {
     content: "";
@@ -153,6 +168,8 @@ body {
 .calendar .month .prev,
 .calendar .month .next {
     cursor: pointer;
+    transition: color 0.3s ease;
+    /* Smooth color transition */
 }
 
 .calendar .month .prev:hover,
@@ -200,6 +217,8 @@ body {
     cursor: pointer;
     color: var(--primary-clr);
     border: 1px solid #f5f5f5;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Smooth hover effects */
 }
 
 .calendar .days .day:nth-child(7n + 1) {
@@ -306,7 +325,6 @@ body {
     border-radius: 5px;
     padding: 0 20px;
     color: var(--primary-clr);
-    border-radius: 5px;
 }
 
 .calendar .goto-today button {
@@ -316,6 +334,8 @@ body {
     background-color: transparent;
     cursor: pointer;
     color: var(--primary-clr);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Smooth hover effects */
 }
 
 .calendar .goto-today button:hover {
@@ -384,8 +404,11 @@ body {
     padding: 0 20px;
     padding-left: 50px;
     color: #fff;
-    background: linear-gradient(90deg, #3f4458, transparent);
+    background: linear-gradient(90deg, var(--primary-clr), var(--secondary-clr));
+    /* Sunset gradient */
     cursor: pointer;
+    transition: background 0.3s ease;
+    /* Smooth background transition */
 }
 
 /* even event */
@@ -394,7 +417,8 @@ body {
 }
 
 .events .event:hover {
-    background: linear-gradient(90deg, var(--primary-clr), transparent);
+    background: linear-gradient(90deg, #feb47b, #ff7e5f);
+    /* Lighter gradient on hover */
 }
 
 .events .event .title {
@@ -466,6 +490,8 @@ body {
     border-radius: 50%;
     background-color: transparent;
     cursor: pointer;
+    transition: opacity 0.3s ease;
+    /* Smooth opacity transition */
 }
 
 .add-event:hover {
@@ -498,6 +524,7 @@ body {
     background-color: #fff;
     transform: translateX(-50%);
     transition: max-height 0.5s ease;
+    /* Smooth height transition */
 }
 
 .add-event-wrapper.active {
@@ -511,7 +538,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
-    color: #373c4f;
+    color: var(--text-clr);
     border-bottom: 1px solid #f5f5f5;
 }
 
@@ -556,13 +583,19 @@ body {
     padding: 0 10px;
     font-size: 1rem;
     font-weight: 400;
-    color: #373c4f;
+    color: var(--text-clr);
 }
 
 .add-event-body .add-event-input input::placeholder {
     color: #a5a5a5;
 }
-
+.time-label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-clr);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
 .add-event-body .add-event-input input:focus {
     border-bottom: 1px solid var(--primary-clr);
 }
@@ -590,13 +623,132 @@ body {
     cursor: pointer;
     padding: 5px 10px;
     border: 1px solid var(--primary-clr);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Smooth hover effects */
 }
 
 .add-event-footer .add-event-btn:hover {
     background-color: transparent;
     color: var(--primary-clr);
 }
+/* Event Modal Styling */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: linear-gradient(90deg, var(--primary-clr), var(--secondary-clr));
+    color: white;
+    border-radius: 5px 5px 0 0;
+}
 
+.modal-header h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.close-modal {
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.close-modal:hover {
+    transform: scale(1.1);
+}
+
+/* Time Dropdown Styling */
+.event-time-from,
+.event-time-to {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: var(--text-clr);
+    background-color: white;
+    transition: border-color 0.3s ease;
+}
+
+.event-time-from:focus,
+.event-time-to:focus {
+    border-color: var(--primary-clr);
+    outline: none;
+}
+
+/* Event List Animation */
+.event {
+    animation: slideIn 0.3s ease;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Delete Event Confirmation */
+.event:hover .event-time {
+    display: none;
+}
+
+.event:hover::before {
+    content: "Delete";
+    position: absolute;
+    right: 15px;
+    color: #fff;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* Time Validation Feedback */
+.time-error {
+    border-color: #ff4444 !important;
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+/* Event Counter Badge */
+.day.event::before {
+    content: attr(data-events);
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--primary-clr);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
 /* media queries */
 
 @media screen and (max-width: 1000px) {
@@ -680,7 +832,7 @@ body {
     padding: 10px;
     font-size: 12px;
     color: #fff;
-    background-color: #b38add;
+    background-color: var(--primary-clr);
 }
 
 .credits a {

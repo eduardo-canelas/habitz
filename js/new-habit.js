@@ -37,28 +37,58 @@ const months = [
   "December",
 ];
 
-// const eventsArr = [
-//   {
-//     day: 13,
-//     month: 11,
-//     year: 2022,
-//     events: [
-//       {
-//         title: "Event 1 lorem ipsun dolar sit genfa tersd dsad ",
-//         time: "10:00 AM",
-//       },
-//       {
-//         title: "Event 2",
-//         time: "11:00 AM",
-//       },
-//     ],
-//   },
-// ];
-
 const eventsArr = [];
 getEvents();
 console.log(eventsArr);
 
+function generateTimeOptions() {
+  const times = [];
+  for (let i = 0; i < 24; i++) {
+    const hour = i.toString().padStart(2, '0');
+    times.push(`${hour}:00`);
+    times.push(`${hour}:30`);
+  }
+  return times;
+}
+
+function populateTimeDropdowns() {
+  const timeOptions = generateTimeOptions();
+  const fromSelect = document.querySelector('.event-time-from');
+  const toSelect = document.querySelector('.event-time-to');
+
+  timeOptions.forEach(time => {
+    const fromOption = document.createElement('option');
+    fromOption.value = time;
+    fromOption.textContent = time;
+    fromSelect.appendChild(fromOption);
+
+    const toOption = document.createElement('option');
+    toOption.value = time;
+    toOption.textContent = time;
+    toSelect.appendChild(toOption);
+  });
+}
+
+function openModal(day) {
+  const modalHeader = document.createElement('div');
+  modalHeader.classList.add('modal-header');
+  modalHeader.innerHTML = `
+    <h2>Details for ${month + 1}/${day}/${year}</h2>
+    <span class="close-modal">&times;</span>
+  `;
+  addEventWrapper.prepend(modalHeader);
+
+  // Add event listener to close the modal
+  modalHeader.querySelector('.close-modal').addEventListener('click', () => {
+    addEventWrapper.style.display = 'none';
+    modalHeader.remove(); // Remove the header when closing the modal
+  });
+
+  addEventWrapper.style.display = 'block';
+}
+
+// Populate the time dropdowns when the document is loaded
+document.addEventListener('DOMContentLoaded', populateTimeDropdowns);
 //function to add days in days with class day and prev-date next-date on previous month and next month days and active on today
 function initCalendar() {
   const firstDay = new Date(year, month, 1);
