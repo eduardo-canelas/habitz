@@ -75,19 +75,6 @@ function showNotification(message) {
     }, 2000);
 }
 
-// Function to reset all habits (for dashboard)
-function resetHabits() {
-    console.log("resetHabits function called");
-    if (confirm('Are you sure you want to reset all habit tracking data?')) {
-        console.log("User confirmed reset");
-        localStorage.removeItem('habits');
-        console.log("habits removed from localStorage");
-        updateDashboard();
-    } else {
-        console.log("Reset cancelled by user");
-    }
-}
-
 function getMoodStats() {
     const moodHistory = JSON.parse(localStorage.getItem("moodHistory")) || [];
     const moodCounts = moodHistory.reduce((acc, entry) => {
@@ -336,6 +323,14 @@ function createCalendar() {
         dayCell.onclick = () => showDayDetails(day, currentMonth, currentYear);
         
         calendar.appendChild(dayCell);
+    }
+}
+
+function clearAllLocalStorage() {
+    if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
+        localStorage.clear();
+        alert('All data has been cleared.');
+        location.reload(); // Reload the page to reflect changes
     }
 }
 
