@@ -123,14 +123,11 @@ body {
     font-size: larger;
 }
 
-.icon-section h3 {
+.icon-section {
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     margin: 0.9em;
     font-size: 0.3em;
     font-weight: bold;
-}
-
-.icon-section {
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .icon-section:hover {
@@ -149,8 +146,8 @@ body {
 
 #icons img {
     margin: 2px 2px;
-    width: 120px;
-    height: 120px;
+    width: 180px;
+    height: 180px;
 }
 
 /* LINKS
@@ -197,6 +194,7 @@ a:hover {
         /* Ensure there's space above the footer */
     }
 }
+
 @media (max-width: 768px) {
     #icons {
         grid-template-columns: repeat(2, 1fr);
@@ -364,15 +362,15 @@ a:hover {
         transform: none;
     }
 
-#title,
-#subtitle,
-#add-new-habit,
-footer {
-    margin-bottom: 20px;
-    /* Add margin to separate elements */
-}
+    #title,
+    #subtitle,
+    #add-new-habit,
+    footer {
+        margin-bottom: 20px;
+        /* Add margin to separate elements */
+    }
 
-/* Footer styles */
+    /* Footer styles */
     footer {
         margin-top: 40px;
         /* Ensure there's space above the footer */
@@ -407,7 +405,7 @@ footer {
             font-size: 0.9rem;
             /* Smaller font size for footer */
             word-wrap: break-word;
-                overflow-wrap: break-word;
+            overflow-wrap: break-word;
         }
     }
 }
